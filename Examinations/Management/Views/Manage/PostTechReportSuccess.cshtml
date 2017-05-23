@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "PostTechReportSuccess";
+    Layout = "~/Views/Shared/_rootLayout.cshtml";
+}
+
+<div class="accountHeader">
+    <h2>
+        报告问题
+    </h2>
+    <p class="text-success">您报告提交成功,感谢您对我们的帮助!</p>
+    <br />
+
+    @Html.DevExpress().Button(settings =>
+{
+    settings.Name = "Button";
+    settings.Text = "返回";
+    settings.UseSubmitBehavior = false;
+    settings.RouteValues = new { Controller = "Home", Action = "Index" };
+}).GetHtml()
+
+
+</div>

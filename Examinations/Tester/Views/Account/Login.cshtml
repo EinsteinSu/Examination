@@ -1,0 +1,55 @@
+﻿@{ Layout = "~/Views/Shared/_lightLayout.cshtml"; }
+@model Tester.Models.LoginModel
+<div class="accountHeader">
+    <h2>用户登录</h2>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.DevExpress().Label(settings =>
+    {
+        settings.Name = "UserNameLabel";
+        settings.Text = "用户代码";
+        settings.AssociatedControlName = "UserName";
+    }).GetHtml()
+
+    <div class="form-field">
+        @Html.EditorFor(m => m.UserCode)
+        @Html.ValidationMessageFor(m => m.UserCode)
+    </div>
+
+    @Html.DevExpress().Label(settings =>
+    {
+        settings.Name = "PasswordLabel";
+        settings.Text = "密码";
+        settings.AssociatedControlName = "Password";
+    }).GetHtml()
+    <div class="form-field">
+        @Html.EditorFor(m => m.Password)
+        @Html.ValidationMessageFor(m => m.Password)
+    </div>
+
+    <div class="form-field">
+        @Html.DevExpress().CheckBox(settings =>
+        {
+            settings.Name = "RememberMe";
+            settings.Text = "记住我?";
+        }).GetHtml()
+    </div>
+    <div class="form-field">
+        <h4>@Html.ValidationMessage("LoginError", new {@class = "text-danger"})</h4>
+    </div>
+    @Html.DevExpress().Button(settings =>
+    {
+        settings.Name = "Button";
+        settings.Text = "登录";
+        settings.UseSubmitBehavior = true;
+    }).GetHtml()
+}
+
+@* Enable this once you have account confirmation enabled for password reset functionality
+    <br />
+    @Html.ActionLink("Forgot your password?", "ForgotPassword")
+*@
+@*@Html.Partial("_ExternalLoginsListPartial", new Entry.Models.ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })*@

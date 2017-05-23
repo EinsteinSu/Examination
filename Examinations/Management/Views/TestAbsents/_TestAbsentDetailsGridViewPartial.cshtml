@@ -1,0 +1,29 @@
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "TestAbsentDetailsGridView";
+        settings.CallbackRouteValues = new { Controller = "TestAbsents", Action = "TestAbsentDetailsGridViewPartial", id = ViewData["TestId"] };
+        settings.Width = Unit.Percentage(100);
+        settings.Settings.VerticalScrollableHeight = 550;
+        settings.ControlStyle.Paddings.Padding = Unit.Pixel(1);
+        settings.ControlStyle.Border.BorderWidth = Unit.Pixel(1);
+        settings.ControlStyle.BorderBottom.BorderWidth = Unit.Pixel(1);
+
+        settings.KeyFieldName = "UserTestId";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Columns.Add("Name");
+        settings.Columns.Add("SiteName");
+    });
+}
+@grid.Bind(Model).GetHtml()

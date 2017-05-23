@@ -1,0 +1,86 @@
+﻿@model Supeng.Examination.BusinessLayer.Models.TestUserSelectionViewModel
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>
+                网点筛选:
+            </td>
+            <td style="padding-left: 10px;">
+                @Html.DevExpress().ComboBox(settings =>
+           {
+               settings.Name = "siteId";
+               settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+               settings.Properties.DropDownStyle = DropDownStyle.DropDown;
+               settings.Properties.TextField = "Name";
+               settings.Properties.ValueField = "SiteId";
+               settings.Properties.ValueType = typeof(int);
+               settings.SelectedIndex = Model.SiteId;
+               settings.CallbackRouteValues = new {Controller = "Tests", Action = "UserSelectionGridViewPartial", id = Model.TestId, siteId = Model.TestId};
+           }).BindList(ViewBag.Sites).GetHtml()
+            </td>
+            <td style="padding-left: 10px;">
+                @Html.DevExpress().Button(settings =>
+                {
+                    settings.Name = "btQuery";
+                    settings.Text = "查询";
+                    settings.UseSubmitBehavior = true;
+                }).GetHtml()
+            </td>
+        </tr>
+    </table>
+}
+
+@using (Html.BeginForm("SelectUserConfirm", "Tests",
+                new {id = Model.TestId, siteId = Model.SiteId }, FormMethod.Post))
+{
+    @Html.DevExpress().CheckBoxList(settings =>
+{
+    settings.Name = "cblUser";
+    settings.Width = Unit.Percentage(100);
+    settings.Properties.ValueField = "UserId";
+    settings.Properties.TextField = "DisplayName";
+    settings.Properties.RepeatColumns = 3;
+    settings.Properties.ValueType = typeof(int);
+    settings.PreRender = (sender, e) =>
+    {
+        var cbl = (ASPxCheckBoxList)sender;
+        if (Model.SelectedItems != null)
+        {
+            foreach (ListEditItem item in cbl.Items)
+            {
+                item.Selected = Model.SelectedItems.Contains((int)item.Value);
+            }
+        }
+    };
+}).BindList(ViewBag.SelectionUsers).GetHtml()
+
+    <table>
+        <tr>
+            <td>
+                @Html.DevExpress().Button(settings =>
+                {
+                    settings.Name = "btnSelectCheckBoxList";
+                    settings.Text = "全选";
+                    settings.ClientSideEvents.Click = "function(s, e) { cblUser.SelectAll(); }";
+                }).GetHtml()
+            </td>
+            <td style="padding: 10px">
+                @Html.DevExpress().Button(settings =>
+                {
+                    settings.Name = "btnUnselectCheckBoxList";
+                    settings.Text = "不选";
+                    settings.ClientSideEvents.Click = "function(s, e) { cblUser.UnselectAll(); }";
+                }).GetHtml()
+            </td>
+        </tr>
+    </table>
+
+    @Html.DevExpress().Button(settings =>
+    {
+        settings.Name = "btConfirm";
+        settings.Text = "提交";
+        settings.UseSubmitBehavior = true;
+        //settings.RouteValues = new {Controller = "Tests", Action = "SelectUserConfirm", id = Model.TestId, siteId = Model.SiteId};
+    }).GetHtml()
+}

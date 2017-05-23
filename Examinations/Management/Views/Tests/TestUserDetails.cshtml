@@ -1,0 +1,21 @@
+﻿@model Supeng.Examination.BusinessLayer.Models.TestDetailViewModel
+@{
+    ViewBag.Title = "TestUserDetails";
+    Layout = "~/Views/Shared/_rootLayout.cshtml";
+}
+@if (!Model.CanEdit)
+{
+    <h2>详细信息</h2>
+
+    @Html.Action("GridViewPartial", new { id = Model.TestId })
+
+}
+else
+{
+    <h2>选择考试用户</h2>
+
+    @Html.Action("UserSelectionGridViewPartial", new { id = Model.TestId, siteId = 0 })
+
+}
+
+

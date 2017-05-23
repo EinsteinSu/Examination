@@ -1,0 +1,34 @@
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "UserTestDetailsGridView";
+        settings.CallbackRouteValues = new { Controller = "TestResults", Action = "UserTestDetailsGridViewPartial", testId = ViewData["TestId"], userTestId = ViewData["UserTestId"] };
+
+        settings.Width = Unit.Percentage(100);
+        //settings.SettingsPager.PageSize = 10;
+        settings.Settings.VerticalScrollableHeight = 550;
+        settings.ControlStyle.Paddings.Padding = Unit.Pixel(1);
+        settings.ControlStyle.Border.BorderWidth = Unit.Pixel(1);
+        settings.ControlStyle.BorderBottom.BorderWidth = Unit.Pixel(1);
+
+        settings.KeyFieldName = "UserTestId";
+
+        settings.SettingsPager.Visible = false;
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = false;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Columns.Add("Sequence");
+        settings.Columns.Add("QuestionContent");
+        settings.Columns.Add("CorrectAnswer");
+        settings.Columns.Add("Answer");
+    });
+}
+@grid.Bind(Model).GetHtml()

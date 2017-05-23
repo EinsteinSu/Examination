@@ -1,0 +1,36 @@
+﻿@model Supeng.Examination.BusinessLayer.Models.AboutViewModel
+
+@{
+    ViewBag.Title = "About";
+    Layout = "~/Views/Shared/_rootLayout.cshtml";
+}
+
+<h2>关于</h2>
+<div style="padding: 20px;" class="dxsplControl_iOS">
+    <table class="table table-hover">
+        <tr>
+            <td style="text-align: right">系统名名称</td>
+            <td style="padding-left: 20px;">@Model.SystemName</td>
+        </tr>
+        <tr>
+            <td style="text-align: right">版本号</td>
+            <td style="padding-left: 20px;">@Model.Version</td>
+        </tr>
+        <tr>
+            <td style="text-align: right">版权所有</td>
+            <td style="padding-left: 20px;">@Model.CopyRight</td>
+        </tr>
+        <tr>
+            <td style="text-align: right">联系人</td>
+            <td style="padding-left: 20px;">@Model.ContactUser</td>
+        </tr>
+        <tr>
+            <td style="text-align: right">手机</td>
+            <td style="padding-left: 20px;">@Model.Mobile</td>
+        </tr>
+        <tr>
+            <td style="text-align: right">电子邮件</td>
+            <td style="padding-left: 20px;">@Model.EmailAddress</td>
+        </tr>
+    </table>
+</div>

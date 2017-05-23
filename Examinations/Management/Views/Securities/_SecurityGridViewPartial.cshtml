@@ -1,0 +1,65 @@
+﻿@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "SecurityGridView";
+        settings.CallbackRouteValues = new { Controller = "Securities", Action = "SecurityGridViewPartial" };
+
+        settings.Width = Unit.Percentage(100);
+        settings.SettingsPager.PageSize = 32;
+        settings.Settings.VerticalScrollableHeight = 350;
+        settings.ControlStyle.Paddings.Padding = Unit.Pixel(10);
+        settings.ControlStyle.Border.BorderWidth = Unit.Pixel(0);
+        settings.ControlStyle.BorderBottom.BorderWidth = Unit.Pixel(0);
+
+        settings.SettingsCommandButton.UpdateButton.Text = "确定";
+        settings.SettingsCommandButton.CancelButton.Text = "取消";
+        settings.SettingsCommandButton.NewButton.Text = "增加";
+        settings.SettingsCommandButton.EditButton.Text = "修改";
+        settings.SettingsCommandButton.DeleteButton.Text = "删除";
+        settings.SettingsText.ConfirmDelete = "是否删除该数据?";
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Securities", Action = "SecurityGridViewPartialAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Securities", Action = "SecurityGridViewPartialUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Securities", Action = "SecurityGridViewPartialDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = true;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.ShowEditButton = true;
+
+        settings.KeyFieldName = "SecurityRoleId";
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "";
+            column.SetDataItemTemplateContent(container =>
+            {
+                Html.DevExpress().HyperLink(hyperlink =>
+                {
+                    var key = container.KeyValue;
+                    hyperlink.Properties.Text = "设置权限";
+                    hyperlink.NavigateUrl = Url.Action("SecurityRoleActionEdit", new { id = key });
+                }).Render();
+            });
+            column.EditFormSettings.Visible = DefaultBoolean.False;
+        });
+        settings.Columns.Add(column => { column.FieldName = "Name"; });
+
+        settings.SettingsPager.Visible = false;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

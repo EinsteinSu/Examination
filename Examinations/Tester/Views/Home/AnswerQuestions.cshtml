@@ -1,0 +1,97 @@
+﻿@using Supeng.Common
+@using Supeng.Examination.Model
+@model Supeng.Examination.BusinessLayer.Models.UserTestQuestionViewModel
+@{
+    ViewBag.Title = "AnswerQuestions";
+    Layout = "~/Views/Shared/_rootLayout.cshtml";
+}
+<h2>请选择答案</h2>
+@using (Html.BeginForm())
+{
+    <div style="padding-left: 20%; padding-right: 20%; padding-top: 10px;">
+        <h3>@Model.Content</h3>
+        @if (Model.Type == QuestionType.多选)
+        {
+            @(Html.DevExpress().CheckBoxList(
+                  settings =>
+                  {
+                      settings.Width = Unit.Percentage(100);
+                      settings.Name = "MAnswer";
+                      settings.Properties.ValueField = "OrderNumber";
+                      settings.Properties.TextField = "DisplayContent";
+                      settings.Properties.ValueType = typeof(string);
+                      settings.PreRender = (sender, e) =>
+                      {
+                          var cbl = (ASPxCheckBoxList)sender;
+                          if (!string.IsNullOrEmpty(Model.Answer))
+                          {
+                              foreach (ListEditItem item in cbl.Items)
+                              {
+                                  item.Selected = Model.Answer.Decompress(',').Contains(item.Value);
+                              }
+                          }
+                      };
+                  }
+                  ).BindList(Model.OptionalAnswers)
+                  .GetHtml()
+            )
+        }
+        else
+        {
+            @(Html.DevExpress().RadioButtonList(
+                  settings =>
+                  {
+                      settings.Width = Unit.Percentage(100);
+                      //this property should be same with your model property which you want save
+                      settings.Name = "Answer";
+                      settings.Properties.ValueType = typeof(string);
+                      settings.Properties.ValueField = "OrderNumber";
+                      settings.Properties.TextField = "DisplayContent";
+                  }).BindList(Model.OptionalAnswers)
+                  .Bind(Model.Answer)
+                  .GetHtml())
+        }
+        <table>
+            @*<tr>
+                     <td>
+                         @Html.DevExpress().Button(settings =>
+                {
+                    settings.Name = "btnSelectCheckBoxList";
+                    settings.Text = "全选";
+                    settings.ClientSideEvents.Click = "function(s, e) { MAnswer.SelectAll(); }";
+                }).GetHtml()
+                     </td>
+                     <td style="padding: 10px">
+                         @Html.DevExpress().Button(settings =>
+                {
+                    settings.Name = "btnUnselectCheckBoxList";
+                    settings.Text = "不选";
+                    settings.ClientSideEvents.Click = "function(s, e) { MAnswer.UnselectAll(); }";
+                }).GetHtml()
+                     </td>
+                 </tr>*@
+
+            <tr>
+                <td>
+                    @Html.DevExpress().Button(button =>
+               {
+                   button.Name = "btConfirm";
+                   button.Text = "确定";
+                   button.Width = 100;
+                   button.UseSubmitBehavior = true;
+                   button.RouteValues = new { userTestId = ViewBag.TestId, questionId = Model.QuestionId, index = ViewData["index"] };
+               }).GetHtml()
+                </td>
+                <td style="padding: 10px">
+                    @Html.DevExpress().Button(button =>
+               {
+                   button.Name = "btCancel";
+                   button.Text = "取消";
+                   button.Width = 100;
+                   button.RouteValues = new { Controller = "Home", Action = "TestQuestions", id = ViewBag.TestId, index = ViewData["index"] };
+               }).GetHtml()
+                </td>
+            </tr>
+        </table>
+    </div>
+}

@@ -1,0 +1,45 @@
+﻿@model Supeng.Examination.BusinessLayer.Models.TestPaperDetailViewModel
+@{
+    ViewBag.Title = "QuestionDetail";
+    Layout = "~/Views/Shared/_rootLayout.cshtml";
+}
+@if (ViewData["Error"] != null)
+{
+    <h4 class="alert-danger">@ViewData["Error"]</h4>
+}
+<h2>@Model.Title</h2>
+<h3>试题数量: @Model.QuestionCount 总分: @Model.Score</h3>
+<table>
+    <tr>
+        <td>
+            @Html.DevExpress().Button(settings =>
+       {
+           settings.Name = "btBackToTestPaperIndex";
+           settings.UseSubmitBehavior = false;
+           settings.Text = "返回";
+           settings.RouteValues = new { Controller = "TestPapers", Action = "Index" };
+       }).GetHtml()
+        </td>
+        <td style="padding-left: 10px">
+            @Html.DevExpress().Button(settings =>
+       {
+           settings.Name = "btGenerate";
+           settings.UseSubmitBehavior = false;
+           settings.Text = "生成试题";
+           settings.RouteValues = new { Controller = "TestPapers", Action = "GenerateQuestions", testPaperId = @Model.Id };
+       }).GetHtml()
+        </td>
+        <td style="padding-left: 10px">
+            @Html.DevExpress().Button(settings =>
+       {
+           settings.Name = "btQuestionsSelect";
+           settings.UseSubmitBehavior = false;
+           settings.Text = "选择试题";
+           settings.RouteValues = new { Controller = "TestPapers", Action = "ChooseQuestions", testPaperId = @Model.Id };
+       }).GetHtml()
+        </td>
+    </tr>
+</table>
+
+
+@Html.Action("QuestionGridViewPartial", new { id = Model.Id, error = ViewData["error"] })

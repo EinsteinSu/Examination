@@ -1,0 +1,48 @@
+﻿@{ Layout = "~/Views/Shared/_lightLayout.cshtml"; }
+
+@{
+    ViewBag.Title = "Manage";
+}
+
+<div class="accountHeader">
+    <h2>修改你的账户信息</h2>
+</div>
+<table>
+    <tr>
+        <td>
+
+            @Html.DevExpress().Button(settings =>
+       {
+           settings.Name = "btChangePassword";
+           settings.Width = 200;
+           settings.RouteValues = new { Controller = "Account", Action = "ChangePassword" };
+           settings.Text = "修改密码";
+       }).GetHtml()
+
+
+        </td>
+
+    </tr>
+    <tr >
+        <td style="padding-top: 20px;">
+
+            @Html.DevExpress().Button(settings =>
+       {
+           settings.Name = "btEditProfile";
+           settings.Width = 200;
+           settings.RouteValues = new { Controller = "Account", Action = "EditProfile" };
+           settings.Text = "修改个人信息";
+       }).GetHtml()
+
+
+        </td>
+    </tr>
+</table>
+@*<ul>
+    <li>
+        <h3>@Html.ActionLink("修改密码", "ChangePassword", "Account")</h3>
+    </li>
+    <li>
+        <h3>@Html.ActionLink("修改个人信息", "EditProfile", "Account")</h3>
+    </li>
+</ul>*@

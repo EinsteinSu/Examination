@@ -1,0 +1,88 @@
+﻿using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Supeng.Examination.DataAccess;
+using Supeng.Examination.Model;
+
+namespace Supeng.Examination.BusinessLayer.Test
+{
+    [TestClass]
+    public class TestBase
+    {
+        protected readonly ExaDataContext Context = new ExaDataContext();
+
+        [TestInitialize]
+        public void Initialize()
+        {
+        }
+
+        protected void GenerateQuestions(int count)
+        {
+            for (var i = 0; i < count; i++)
+            {
+                Context.Questions.Add(new Question
+                {
+                    Content = string.Format("Question {0}: Hello This is question {0}, Please choose an answer and click ok submit your answer. \r for multiple answer please choose one or more answers and submit your answer complete your test.", (i + 1)),
+                    Type = QuestionType.多选,
+                    Score = 2,
+                    OptionalAnswers = new List<OptionalAnswer>
+                {
+                    new OptionalAnswer{OrderNumber = "A",Content = "Answer A"},
+                    new OptionalAnswer{OrderNumber = "B",Content = "Answer B"},
+                    new OptionalAnswer{OrderNumber = "C",Content = "Answer C"},
+                    new OptionalAnswer{OrderNumber = "D",Content = "Answer D"},
+                }
+                });
+            }
+            Context.SaveChanges();
+        }
+
+        protected void GenerateUsers(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                var user = new UserProfile
+                {
+                    Name = string.Format("User: {0}", i + 1),
+                    UserCode = (i + 1).ToString().PadLeft(3, '0'),
+                    Gender = 0,
+                    Password = "123"
+                };
+                Context.UserProfiles.Add(user);
+            }
+            Context.SaveChanges();
+        }
+
+        protected TestPaper AddTestPaper(int questionCount)
+        {
+            var ex = new TestPaper
+            {
+                Name = "test",
+                QuestionCount = questionCount,
+                Description = "description"
+            };
+            Context.TestPapers.Add(ex);
+            Context.SaveChanges();
+            return ex;
+        }
+
+        [TestCleanup]
+        public void Clean()
+        {
+<<<<<<< HEAD
+            Context.Database.ExecuteSqlCommand("Delete from TechReports");
+=======
+            Context.Database.ExecuteSqlCommand("Delete from SecurityRoleActions");
+            Context.Database.ExecuteSqlCommand("Delete from SecurityRoles");
+            Context.Database.ExecuteSqlCommand("Delete from SecurityActions");
+>>>>>>> 6d406822cb5ee134787c0e21cc9718a02c3a8ab6
+            Context.Database.ExecuteSqlCommand("Delete from TestPaperQuestions");
+            Context.Database.ExecuteSqlCommand("Delete from UserAnswers");
+            Context.Database.ExecuteSqlCommand("Delete from UserTests");
+            Context.Database.ExecuteSqlCommand("Delete from TestPapers");
+            Context.Database.ExecuteSqlCommand("Delete from OptionalAnswers");
+            Context.Database.ExecuteSqlCommand("Delete from questions");
+            Context.Database.ExecuteSqlCommand("Delete from Userprofiles");
+            Context.Database.ExecuteSqlCommand("Delete from tests");
+        }
+    }
+}

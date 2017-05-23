@@ -1,0 +1,108 @@
+﻿<script type="text/javascript">
+    window.onload = function () {
+        var data =  @Html.Raw(Json.Encode(ViewData["index"]));
+        if (data !== null) {
+            var index = data;
+            var row = 'QuestionGridView_tccell' + (index + 1) + '_1';
+            var element = document.getElementById(row);
+            if (element) {
+                window.setTimeout(function() {
+                    element.focus();
+                }, 0);
+            }
+        }
+    }
+</script>
+@using DevExpress.Data
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "QuestionGridView";
+        settings.CallbackRouteValues = new { Controller = "Home", Action = "QuestionGridViewPartial", id = ViewData["TestId"], index = ViewData["index"] };
+
+        settings.Width = Unit.Percentage(100);
+        settings.Settings.VerticalScrollableHeight = 300;
+        settings.Settings.VerticalScrollBarMode = ScrollBarMode.Hidden;
+        //settings.Settings.VerticalScrollBarMode = ScrollBarMode.Visible;
+        settings.ControlStyle.Paddings.Padding = Unit.Pixel(1);
+        settings.ControlStyle.Border.BorderWidth = Unit.Pixel(0);
+        settings.ControlStyle.BorderBottom.BorderWidth = Unit.Pixel(0);
+
+        settings.KeyFieldName = "QuestionId";
+
+        settings.Columns.Add(column =>
+        {
+            column.UnboundType = UnboundColumnType.Integer;
+            column.FieldName = "序号";
+            column.Width = 100;
+            column.EditFormSettings.Visible = DefaultBoolean.False;
+        });
+
+        settings.CustomColumnDisplayText = (sender, e) =>
+        {
+            if (e.Column.FieldName == "序号")
+            {
+                e.DisplayText = (e.VisibleIndex + 1).ToString();
+            }
+        };
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "#";
+            column.Width = 100;
+            column.SetDataItemTemplateContent(container =>
+            {
+                Html.DevExpress().HyperLink(hyperlink =>
+                {
+
+                    var keyValue = container.KeyValue;
+                    hyperlink.Properties.Text = "答题";
+                    hyperlink.NavigateUrl = Url.Action("AnswerQuestions", new { id = keyValue, testId = ViewData["TestId"], index = container.ItemIndex });
+                }).Render();
+            });
+            column.EditFormSettings.Visible = DefaultBoolean.False;
+        });
+
+        settings.SettingsPager.Visible = false;
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.SettingsBehavior.AllowSort = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+        settings.SettingsBehavior.AllowFocusedRow = true;
+        settings.PreRender = (sender, args) =>
+        {
+            var gridView = sender as MVCxGridView;
+            if (gridView != null)
+            {
+                var index = 0;
+                if (ViewData["index"] != null)
+                {
+                    int.TryParse(ViewData["index"].ToString(), out index);
+                }
+                gridView.FocusedRowIndex = index;
+                gridView.ScrollToVisibleIndexOnClient = index;
+            }
+        };
+
+        settings.ClientSideEvents.FocusedRowChanged = "alterTest";
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Type";
+            column.Width = 100;
+        });
+        settings.Columns.Add("Content");
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Score";
+            column.Width = 100;
+        });
+        settings.Columns.Add("Answer");
+    });
+}
+@grid.Bind(Model).GetHtml()

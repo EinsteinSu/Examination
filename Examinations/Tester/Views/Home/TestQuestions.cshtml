@@ -1,0 +1,11 @@
+﻿@model Supeng.Examination.Model.Test
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_rootLayout.cshtml";
+}
+
+<h4>@Model.Name 考试时间(@Model.StartTime.ToString("yyyy-MM-dd HH:mm") 至 @Model.EndTime.ToString("yyyy-MM-dd HH:mm"))</h4>
+
+@Html.Action("QuestionGridViewPartial")
+
+

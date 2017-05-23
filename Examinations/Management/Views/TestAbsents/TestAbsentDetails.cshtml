@@ -1,0 +1,29 @@
+﻿@model Supeng.Examination.BusinessLayer.Models.TestStatistics.TestResultViewModel
+@{
+    ViewBag.Title = "TestAbsentDetail";
+    Layout = "~/Views/Shared/_rootLayout.cshtml";
+}
+
+<h2>@Model.TestName 缺考考生</h2>
+
+<table>
+    <tr>
+        <td>
+            @Html.DevExpress().Button(settings =>
+       {
+           settings.Name = "btBack";
+           settings.Text = "返回";
+           settings.RouteValues = new { Controller = "TestAbsents", Action = "Index" };
+       }).GetHtml()
+        </td>
+        <td style="padding-left: 10px">
+            @Html.DevExpress().Button(settings =>
+       {
+           settings.Name = "btExport";
+           settings.Text = "导出";
+           settings.RouteValues = new { Controller = "TestAbsents", Action = "Export", id = Model.TestId };
+       }).GetHtml()
+        </td>
+    </tr>
+</table>
+@Html.Action("TestAbsentDetailsGridViewPartial")

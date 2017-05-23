@@ -1,0 +1,28 @@
+﻿<table>
+    <tr>
+        <td style="padding: 20px">
+
+            @Html.DevExpress().HyperLink(settings =>
+            {
+                settings.Name = "managementLink";
+                settings.NavigateUrl = "/management";
+                settings.Properties.Text = "管理系统入口";
+            }).GetHtml()
+
+
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 20px">
+
+            @Html.DevExpress().HyperLink(settings =>
+{
+    settings.Name = "testerLink";
+    settings.NavigateUrl = "/tester";
+    settings.Properties.Text = "考生系统入口";
+}).GetHtml()
+
+
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,54 @@
+﻿@model Supeng.Examination.Model.TechReport
+@{
+    ViewBag.Title = "PostTechReport";
+    Layout = "~/Views/Shared/_rootLayout.cshtml";
+}
+
+<h2>报告问题</h2>
+
+
+@using (Html.BeginForm())
+{
+    <div style="padding: 20px">
+        @Html.AntiForgeryToken()
+        @Html.DevExpress().Label(settings =>
+        {
+            settings.Name = "SubjectLable";
+            settings.Text = "主题";
+            settings.AssociatedControlName = "Subject";
+        }).GetHtml()
+        <div class="form-field">
+            @Html.DevExpress().TextBoxFor(m => m.Subject, settings => { settings.Width = 500; }).GetHtml()
+            @Html.ValidationMessageFor(m => m.Subject)
+        </div>
+
+        @Html.DevExpress().Label(settings =>
+        {
+            settings.Name = "DescriptionLabel";
+            settings.Text = "问题描述";
+            settings.AssociatedControlName = "Description";
+        }).GetHtml()
+        <div class="form-field">
+
+            @Html.DevExpress().MemoFor(m => m.Description, settings =>
+            {
+                settings.Width = 500;
+                settings.Height = 120;
+            }).GetHtml()
+
+            @Html.ValidationMessageFor(m => m.Description)
+        </div>
+        <div class="form-field">
+            <h4>@Html.ValidationMessage("ManageError", new {@class = "text-danger"})</h4>
+        </div>
+        <br/>
+        @Html.DevExpress().Button(settings =>
+        {
+            settings.Name = "btPostTechReport";
+            settings.Text = "提交";
+            settings.UseSubmitBehavior = true;
+        }).GetHtml()
+
+
+    </div>
+}

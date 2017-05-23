@@ -1,0 +1,79 @@
+﻿@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "QuestionDetailGridView";
+        settings.CallbackRouteValues = new { Controller = "Questions", Action = "QuestionDetailGridViewPartial", QuestionId = ViewData["QuestionId"] };
+
+        settings.Width = Unit.Percentage(100);
+        settings.SettingsPager.PageSize = 32;
+        settings.Settings.VerticalScrollableHeight = 350;
+        settings.ControlStyle.Paddings.Padding = Unit.Pixel(10);
+        settings.ControlStyle.Border.BorderWidth = Unit.Pixel(1);
+        settings.ControlStyle.BorderBottom.BorderWidth = Unit.Pixel(1);
+
+        settings.SettingsCommandButton.UpdateButton.Text = "确定";
+        settings.SettingsCommandButton.CancelButton.Text = "取消";
+        settings.SettingsCommandButton.NewButton.Text = "增加";
+        settings.SettingsCommandButton.EditButton.Text = "修改";
+        settings.SettingsCommandButton.DeleteButton.Text = "删除";
+        settings.SettingsText.ConfirmDelete = "是否删除该数据?";
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Questions", Action = "QuestionDetailGridViewPartialAddNew", QuestionId = ViewData["QuestionId"] };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Questions", Action = "QuestionDetailGridViewPartialUpdate", QuestionId = ViewData["QuestionId"] };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Questions", Action = "QuestionDetailGridViewPartialDelete", QuestionId = ViewData["QuestionId"] };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditForm;
+        settings.SettingsBehavior.ConfirmDelete = true;
+        settings.SettingsEditing.EditFormColumnCount = 1;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = true;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.ShowEditButton = true;
+
+        settings.KeyFieldName = "AnswerId";
+
+        settings.SettingsPager.Visible = false;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 2;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Columns.Add(column =>
+        {
+            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+            column.FieldName = "OrderNumber";
+            var edit = column.PropertiesEdit as ComboBoxProperties;
+            if (edit != null)
+            {
+                edit.Items.Add("A");
+                edit.Items.Add("B");
+                edit.Items.Add("C");
+                edit.Items.Add("D");
+                edit.Items.Add("E");
+                edit.Items.Add("F");
+                edit.Items.Add("G");
+            }
+        });
+        settings.Columns.Add(column =>
+        {
+            column.ColumnType = MVCxGridViewColumnType.Memo;
+            column.FieldName = "Content";
+            var edit = column.PropertiesEdit as MemoProperties;
+            if (edit != null)
+            {
+                edit.Height = 80;
+            }
+        });
+
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

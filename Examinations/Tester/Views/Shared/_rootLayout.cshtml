@@ -1,0 +1,58 @@
+﻿@using System.Drawing
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css">
+
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.GridView }
+        )
+    @Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+        new Script { ExtensionSuite = ExtensionSuite.GridView }
+        )
+
+</head>
+<body>
+    <div class="headerPane">
+        @Html.Partial("HeaderPartialView")
+    </div>
+    <div class="mainContentPane">
+        @RenderBody()
+        <footer class="footerPane">
+            @Html.Partial("FooterPartialView")
+        </footer>
+    </div>
+    <script type="text/javascript">
+
+        var showTime = function () {
+            displayTime();
+        }
+
+        var serverTime = new Date('@DateTime.Now');
+
+        function getClientTime() {
+            var time = new Date();
+
+            return (time.getHours() * 60 * 60) +
+                (time.getMinutes() * 60) + (time.getSeconds());
+        }
+
+        function displayTime() {
+            var clock = document.getElementById('clock');
+            if (clock) {
+                clock.innerHTML = serverTime.toString();
+            }
+            serverTime.setSeconds(serverTime.getSeconds() + 1);
+            setTimeout(displayTime, 1000);
+        }
+
+        showTime();
+    </script>
+</body>
+</html>

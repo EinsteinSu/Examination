@@ -1,0 +1,48 @@
+﻿@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "TestAbsentGridView";
+        settings.CallbackRouteValues = new { Controller = "TestAbsents", Action = "TestAbsentGridViewPartial"};
+        settings.Width = Unit.Percentage(100);
+        settings.Settings.VerticalScrollableHeight = 550;
+        settings.ControlStyle.Paddings.Padding = Unit.Pixel(1);
+        settings.ControlStyle.Border.BorderWidth = Unit.Pixel(1);
+        settings.ControlStyle.BorderBottom.BorderWidth = Unit.Pixel(1);
+
+        settings.KeyFieldName = "TestId";
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "";
+            column.SetDataItemTemplateContent(container =>
+            {
+                Html.DevExpress().HyperLink(hyperlink =>
+                {
+                    var key = container.KeyValue;
+                    hyperlink.Properties.Text = "详细信息";
+                    hyperlink.NavigateUrl = Url.Action("ViewDetails", new { id = key });
+                }).Render();
+            });
+            column.EditFormSettings.Visible = DefaultBoolean.False;
+        });
+        settings.SettingsPager.Visible = false;
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+
+        settings.Columns.Add("TestName");
+        settings.Columns.Add("StartTime");
+        settings.Columns.Add("EndTime");
+        settings.Columns.Add("TestPaperName");
+        settings.Columns.Add("TesterCount");
+        settings.Columns.Add("AbsentTesterCount");
+    });
+}
+@grid.Bind(Model).GetHtml()

@@ -1,0 +1,7 @@
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Common\bin\Release\Supeng.Common.dll
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Common\bin\Release\Supeng.Common.pdb
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Common\bin\Release\Newtonsoft.Json.dll
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Common\bin\Release\Newtonsoft.Json.xml
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Common\obj\Release\Supeng.Common.csprojResolveAssemblyReference.cache
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Common\obj\Release\Supeng.Common.dll
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Common\obj\Release\Supeng.Common.pdb

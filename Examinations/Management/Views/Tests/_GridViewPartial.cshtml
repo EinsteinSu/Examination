@@ -1,0 +1,35 @@
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "UserTestGridView";
+        settings.CallbackRouteValues = new { Controller = "Tests", Action = "GridViewPartial", id = ViewBag.TestId };
+        settings.Width = Unit.Percentage(100);
+        settings.SettingsPager.PageSize = 20;
+        settings.Settings.VerticalScrollableHeight = 350;
+        settings.ControlStyle.Paddings.Padding = Unit.Pixel(1);
+        settings.ControlStyle.Border.BorderWidth = Unit.Pixel(0);
+        settings.ControlStyle.BorderBottom.BorderWidth = Unit.Pixel(0);
+
+        settings.KeyFieldName = "UserTestId";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Columns.Add("User.UserCode");
+        settings.Columns.Add("User.Name");
+        settings.Columns.Add("Status");
+        settings.Columns.Add("StartTime");
+        settings.Columns.Add("EndTime");
+        settings.Columns.Add("Percent");
+        settings.Columns.Add("Score");
+    });
+}
+@grid.Bind(Model).GetHtml()

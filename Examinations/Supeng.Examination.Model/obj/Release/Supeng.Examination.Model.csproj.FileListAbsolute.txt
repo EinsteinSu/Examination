@@ -1,0 +1,10 @@
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Examination.Model\bin\Release\Supeng.Examination.Model.dll.config
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Examination.Model\bin\Release\Supeng.Examination.Model.dll
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Examination.Model\bin\Release\Supeng.Examination.Model.pdb
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Examination.Model\bin\Release\EntityFramework.dll
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Examination.Model\bin\Release\EntityFramework.SqlServer.dll
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Examination.Model\bin\Release\EntityFramework.xml
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Examination.Model\bin\Release\EntityFramework.SqlServer.xml
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Examination.Model\obj\Release\Supeng.Examination.Model.csprojResolveAssemblyReference.cache
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Examination.Model\obj\Release\Supeng.Examination.Model.dll
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Examination.Model\obj\Release\Supeng.Examination.Model.pdb

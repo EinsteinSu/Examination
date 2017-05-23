@@ -1,0 +1,25 @@
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "OptionalAnswer";
+        settings.CallbackRouteValues = new { Controller = "TestPapers", Action = "OptionalAnswerGridViewPartial", QuestionId = ViewData["QuestionId"] };
+
+
+        settings.KeyFieldName = "AnswerId";
+
+        settings.SettingsPager.Visible = false;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = false;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+        settings.Settings.ShowColumnHeaders = false;
+        settings.Columns.Add("OrderNumber");
+        settings.Columns.Add("Content");
+    });
+}
+@grid.Bind(Model).GetHtml()

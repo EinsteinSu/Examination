@@ -1,0 +1,118 @@
+﻿@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "TestGridView";
+        settings.CallbackRouteValues = new { Controller = "Tests", Action = "TestGridViewPartial" };
+        settings.Width = Unit.Percentage(100);
+        settings.SettingsPager.PageSize = 32;
+        settings.Settings.VerticalScrollableHeight = 350;
+        settings.ControlStyle.Paddings.Padding = Unit.Pixel(1);
+        settings.ControlStyle.Border.BorderWidth = Unit.Pixel(1);
+        settings.ControlStyle.BorderBottom.BorderWidth = Unit.Pixel(1);
+
+        settings.SettingsCommandButton.UpdateButton.Text = "确定";
+        settings.SettingsCommandButton.CancelButton.Text = "取消";
+        settings.SettingsCommandButton.NewButton.Text = "增加";
+        settings.SettingsCommandButton.EditButton.Text = "修改";
+        settings.SettingsCommandButton.DeleteButton.Text = "删除";
+        settings.SettingsText.ConfirmDelete = "是否删除该数据?";
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Tests", Action = "TestGridViewPartialAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Tests", Action = "TestGridViewPartialUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Tests", Action = "TestGridViewPartialDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = true;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.ShowEditButton = true;
+
+        settings.KeyFieldName = "TestId";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "";
+            column.SetDataItemTemplateContent(container =>
+            {
+                Html.DevExpress().HyperLink(hyperlink =>
+                {
+                    var keyValue = container.KeyValue;
+                    var generated = bool.Parse(DataBinder.Eval(container.DataItem, "Generated").ToString());
+                    if (generated)
+                    {
+                        hyperlink.Properties.Text = "详细信息";
+                    }
+                    else
+                    {
+                        hyperlink.Properties.Text = "选择考生";
+                    }
+                    hyperlink.NavigateUrl = Url.Action("TestUserDetails", new { id = keyValue });
+                }).Render();
+            });
+            column.EditFormSettings.Visible = DefaultBoolean.False;
+        });
+        settings.Columns.Add("Name");
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "StartTime";
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            var editor = column.PropertiesEdit as DateEditProperties;
+            if (editor != null)
+            {
+                editor.EditFormat = EditFormat.DateTime;
+            }
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "EndTime";
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            var editor = column.PropertiesEdit as DateEditProperties;
+            if (editor != null)
+            {
+                editor.EditFormat = EditFormat.DateTime;
+            }
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TestPaperId";
+            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+            var combo = column.PropertiesEdit as ComboBoxProperties;
+            if (combo != null)
+            {
+                combo.AllowNull = false;
+                combo.AllowUserInput = false;
+                combo.DataSource = ViewBag.TestPaperList;
+                combo.ValueField = "TestPaperId";
+                combo.TextField = "Name";
+            }
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Description";
+            column.ColumnType = MVCxGridViewColumnType.Memo;
+            column.EditFormSettings.ColumnSpan = 2;
+            var editor = column.PropertiesEdit as MemoProperties;
+            if (editor != null)
+            {
+                editor.Height = 80;
+            }
+        });
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

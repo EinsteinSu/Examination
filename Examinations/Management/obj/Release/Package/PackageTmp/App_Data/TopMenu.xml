@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<items>
+  <group Text="考试管理">
+    <item Text="题库管理" NavigateUrl="Questions/Index"/>
+    <item Text="试卷管理" NavigateUrl="#/TestPapers"/>
+    <item Text="考试管理" NavigateUrl="#"/>
+  </group>
+  <item Text="用户管理" NavigateUrl="UserProfiles"  />
+  <group Text="考试统计">
+    <item Text="结果统计" NavigateUrl="#"/>
+    <item Text="缺考统计" NavigateUrl="#"/>
+    <item Text="平均分统计" NavigateUrl="#"/>
+  </group>
+  <item Text="关于" NavigateUrl="#"  />
+</items>

@@ -1,0 +1,43 @@
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "QuestionGridView";
+        settings.CallbackRouteValues = new { Controller = "TestPapers", Action = "QuestionGridViewPartial", id = ViewData["TestPaperId"] };
+
+
+        settings.KeyFieldName = "QuestionId";
+
+        settings.Width = Unit.Percentage(100);
+        settings.SettingsPager.PageSize = 20;
+        settings.Settings.VerticalScrollableHeight = 350;
+        settings.ControlStyle.Paddings.Padding = Unit.Pixel(1);
+        settings.ControlStyle.Border.BorderWidth = Unit.Pixel(1);
+        settings.ControlStyle.BorderBottom.BorderWidth = Unit.Pixel(1);
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Columns.Add("Category.Name");
+        settings.Columns.Add("Type");
+        settings.Columns.Add("Content");
+        settings.Columns.Add("Score");
+        settings.Columns.Add("CorrectAnswer");
+
+
+        settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
+        settings.SettingsDetail.ShowDetailRow = true;
+
+        settings.SetDetailRowTemplateContent(c =>
+        {
+            Html.RenderAction("OptionalAnswerGridViewPartial", new { QuestionId = DataBinder.Eval(c.DataItem, "QuestionId") });
+        });
+    });
+}
+@grid.Bind(Model).GetHtml()

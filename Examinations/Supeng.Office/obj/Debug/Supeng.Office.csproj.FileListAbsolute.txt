@@ -1,0 +1,4 @@
+D:\Projects\Anothers\Examinations\Build Dlls For Windows\Supeng.Office.dll
+D:\Projects\Anothers\Examinations\Build Dlls For Windows\Supeng.Office.pdb
+D:\Projects\Anothers\Examinations\Supeng.Office\obj\Debug\Supeng.Office.dll
+D:\Projects\Anothers\Examinations\Supeng.Office\obj\Debug\Supeng.Office.pdb

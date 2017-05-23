@@ -1,0 +1,62 @@
+﻿@using System.Drawing
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "DetailsGridView";
+        settings.CallbackRouteValues = new { Controller = "TestResults", Action = "DetailsGridViewPartial", id = ViewData["TestId"] };
+        settings.Width = Unit.Percentage(100);
+        //settings.SettingsPager.PageSize = 10;
+        settings.Settings.VerticalScrollableHeight = 550;
+        settings.ControlStyle.Paddings.Padding = Unit.Pixel(1);
+        settings.ControlStyle.Border.BorderWidth = Unit.Pixel(1);
+        settings.ControlStyle.BorderBottom.BorderWidth = Unit.Pixel(1);
+
+        settings.KeyFieldName = "UserTestId";
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "";
+            column.SetDataItemTemplateContent(container =>
+            {
+                Html.DevExpress().HyperLink(hyperlink =>
+                {
+                    var key = container.KeyValue;
+                    //var testId = int.Parse(DataBinder.Eval(container.DataItem, "TestId").ToString());
+                    hyperlink.Properties.Text = "详细信息";
+                    hyperlink.NavigateUrl = Url.Action("ViewUserTestDetails", new { testid = ViewData["TestId"], userTestId = key });
+                }).Render();
+            });
+            column.EditFormSettings.Visible = DefaultBoolean.False;
+        });
+
+        settings.SettingsPager.Visible = false;
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+        settings.FormatConditions.AddTopBottom(condition =>
+        {
+            condition.FieldName = "Score";
+            condition.Rule = GridTopBottomRule.TopPercent;
+            condition.Threshold = 60;
+            condition.Format = GridConditionHighlightFormat.RedText;
+        });
+        settings.FormatConditions.AddHighlight((condition) =>
+        {
+            //condition.ApplyToRow = true;
+            condition.FieldName = "Score";
+            condition.Expression = "[Score] < 60";
+            condition.CellStyle.BackColor = Color.Red;
+            condition.Format = GridConditionHighlightFormat.Custom;
+        });
+        settings.Columns.Add("Name");
+        settings.Columns.Add("SiteName");
+        settings.Columns.Add("Score");
+    });
+}
+@grid.Bind(Model).GetHtml()

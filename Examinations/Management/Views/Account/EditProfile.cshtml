@@ -1,0 +1,63 @@
+﻿@model Supeng.Examination.Model.UserProfile
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_rootLayout.cshtml";
+}
+
+<h2>修改个人信息</h2>
+
+
+@using (Html.BeginForm())
+{
+    <div style="padding-left: 20px">
+        @Html.AntiForgeryToken()
+        @Html.DevExpress().TextBoxFor(m => m.UserId, settings => { settings.ClientVisible = false; }).GetHtml()
+        @Html.DevExpress().Label(settings =>
+        {
+            settings.Name = "nameLable";
+            settings.Text = "姓名";
+            settings.AssociatedControlName = "Name";
+        }).GetHtml()
+        <div class="form-field">
+            @Html.EditorFor(m => m.Name)
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+
+        @Html.DevExpress().Label(settings =>
+        {
+            settings.Name = "genderLabel";
+            settings.Text = "性别";
+            settings.AssociatedControlName = "Gender";
+        }).GetHtml()
+        <div class="form-field">
+            @Html.DevExpress().ComboBoxFor(m => m.Gender, settings =>
+            {
+                settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                settings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                settings.Properties.Items.Add("男", 0);
+                settings.Properties.Items.Add("女", 1);
+            }).GetHtml()
+            @Html.ValidationMessageFor(m => m.Gender)
+        </div>
+        @Html.DevExpress().Label(settings =>
+        {
+            settings.Name = "mobileLabel";
+            settings.Text = "手机号码";
+            settings.AssociatedControlName = "Mobile";
+        }).GetHtml()
+        <div class="form-field">
+            @Html.EditorFor(m => m.Mobile)
+            @Html.ValidationMessageFor(m => m.Mobile)
+        </div>
+        <div class="form-field">
+            <h4>@Html.ValidationMessage("AccountError", new {@class = "text-danger"})</h4>
+        </div>
+        <br/>
+        @Html.DevExpress().Button(settings =>
+        {
+            settings.Name = "Button";
+            settings.Text = "修改信息";
+            settings.UseSubmitBehavior = true;
+        }).GetHtml()
+    </div>
+}

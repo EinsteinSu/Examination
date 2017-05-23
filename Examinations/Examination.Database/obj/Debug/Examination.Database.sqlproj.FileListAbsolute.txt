@@ -1,0 +1,14 @@
+D:\Projects\Anothers\Examinations\Examination.Database\bin\Debug\Examination.Database.dacpac
+D:\Projects\Anothers\Examinations\Examination.Database\obj\Debug\Model.xml
+D:\Projects\Anothers\Examinations\Examination.Database\obj\Debug\refactor.xml
+D:\Projects\Anothers\Examinations\Examination.Database\obj\Debug\postdeploy.sql
+D:\Projects\Anothers\Examinations\Examination.Database\obj\Debug\predeploy.sql
+D:\Projects\Anothers\Examinations\Examination.Database\obj\Debug\Examination.Database.dll
+D:\Projects\Anothers\Examinations\Examination.Database\obj\Debug\Examination.Database.pdb
+D:\Projects\Anothers\Examinations\Examination.Database\bin\Debug\Examination.Database.dll
+D:\Projects\Anothers\Examinations\Examination.Database\bin\Debug\Examination.Database.pdb
+D:\Projects\Examination\Examinations\Examination.Database\bin\Debug\Examination.Database.dacpac
+D:\Projects\Examination\Examinations\Examination.Database\bin\Debug\Examination.Database.dll
+D:\Projects\Examination\Examinations\Examination.Database\bin\Debug\Examination.Database.pdb
+D:\Projects\Examination\Examinations\Examination.Database\obj\Debug\Examination.Database.dll
+D:\Projects\Examination\Examinations\Examination.Database\obj\Debug\Examination.Database.pdb

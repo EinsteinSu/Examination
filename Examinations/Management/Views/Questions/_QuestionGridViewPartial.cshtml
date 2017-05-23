@@ -1,0 +1,121 @@
+﻿@using DevExpress.Data
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "gridview";
+        settings.CallbackRouteValues = new { Controller = "Questions", Action = "QuestionGridViewPartial" };
+
+        settings.Width = Unit.Percentage(100);
+        settings.SettingsPager.PageSize = 100;
+        settings.Settings.VerticalScrollableHeight = 550;
+        settings.ControlStyle.Paddings.Padding = Unit.Pixel(1);
+        settings.ControlStyle.Border.BorderWidth = Unit.Pixel(1);
+        settings.ControlStyle.BorderBottom.BorderWidth = Unit.Pixel(1);
+
+        settings.SettingsCommandButton.UpdateButton.Text = "确定";
+        settings.SettingsCommandButton.CancelButton.Text = "取消";
+        settings.SettingsCommandButton.NewButton.Text = "增加";
+        settings.SettingsCommandButton.EditButton.Text = "修改";
+        settings.SettingsCommandButton.DeleteButton.Text = "删除";
+        settings.SettingsText.ConfirmDelete = "是否删除该数据?";
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Questions", Action = "QuestionGridViewPartialAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Questions", Action = "QuestionGridViewPartialUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Questions", Action = "QuestionGridViewPartialDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = true;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.ShowEditButton = true;
+
+        settings.KeyFieldName = "QuestionId";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = true;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        // settings.CustomBindingRouteValuesCollection.Add(
+        //    GridViewOperationType.Paging,
+        //    new { Controller = "Questions", Action = "QuestionPagging" }
+        //);
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "序号";
+            column.UnboundType = UnboundColumnType.Integer;
+            column.EditFormSettings.Visible = DefaultBoolean.False;
+        });
+
+        settings.CustomColumnDisplayText = (sender, e) =>
+        {
+            if (e.Column.FieldName == "序号")
+            {
+                e.DisplayText = (e.VisibleIndex + 1).ToString();
+            }
+        };
+
+        settings.InitNewRow = (sender, e) =>
+        {
+            e.NewValues["Type"] = "单选";
+            e.NewValues["Score"] = 2;
+        };
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Type";
+            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+            var combo = column.PropertiesEdit as ComboBoxProperties;
+            if (combo != null)
+            {
+                combo.AllowNull = false;
+                combo.AllowUserInput = false;
+                combo.Items.Add("单选", 0);
+                combo.Items.Add("多选", 1);
+            }
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "CategoryId";
+           column.ColumnType = MVCxGridViewColumnType.ComboBox;
+            var combo = column.PropertiesEdit as ComboBoxProperties;
+            if (combo != null)
+            {
+                combo.AllowNull = false;
+                combo.AllowUserInput = false;
+                combo.DataSource = ViewBag.CategoryList;
+                combo.ValueField = "QuestionCategoryId";
+                combo.TextField = "Name";
+            }
+        });
+        settings.Columns.Add("Content");
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Score";
+            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+        });
+        settings.Columns.Add("CorrectAnswer");
+
+        settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
+        settings.SettingsDetail.ShowDetailRow = true;
+
+        settings.SetDetailRowTemplateContent(c =>
+        {
+            Html.RenderAction("QuestionDetailGridViewPartial", new { QuestionId = DataBinder.Eval(c.DataItem, "QuestionId") });
+        });
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

@@ -1,0 +1,32 @@
+﻿
+@using Management.Models
+
+@{
+    ViewBag.Title = "ProcessResultReport";
+    Layout = "~/Views/Shared/_rootLayout.cshtml";
+}
+
+<h2>@ViewBag.Report.Title</h2>
+@switch ((ProcessResultType)@ViewBag.Report.Type)
+{
+    case ProcessResultType.Success:
+        <h3 class="label-success">@ViewBag.Report.Content</h3>
+        break;
+    case ProcessResultType.Failed:
+        <h3 class="label-danger">@ViewBag.Report.Content</h3>
+        break;
+    case ProcessResultType.Warning:
+        <h3 class="label-warning">@ViewBag.Report.Content</h3>
+        break;
+}
+<div style="padding-top: 20px">
+
+    @Html.DevExpress().Button(settings =>
+    {
+        settings.Name = "btBack";
+        settings.UseSubmitBehavior = true;
+        settings.RouteValues = @ViewBag.Report.RouteValues;
+    }).GetHtml()
+
+
+</div>

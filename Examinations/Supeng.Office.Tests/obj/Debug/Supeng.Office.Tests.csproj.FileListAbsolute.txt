@@ -1,0 +1,17 @@
+D:\Projects\Anothers\Examinations\Supeng.Office.Tests\bin\Debug\Supeng.Office.Tests.dll
+D:\Projects\Anothers\Examinations\Supeng.Office.Tests\bin\Debug\Supeng.Office.Tests.pdb
+D:\Projects\Anothers\Examinations\Supeng.Office.Tests\bin\Debug\DocX.dll
+D:\Projects\Anothers\Examinations\Supeng.Office.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+D:\Projects\Anothers\Examinations\Supeng.Office.Tests\bin\Debug\Supeng.Office.dll
+D:\Projects\Anothers\Examinations\Supeng.Office.Tests\bin\Debug\EPPlus.dll
+D:\Projects\Anothers\Examinations\Supeng.Office.Tests\bin\Debug\Microsoft.Office.Interop.Word.dll
+D:\Projects\Anothers\Examinations\Supeng.Office.Tests\bin\Debug\office.dll
+D:\Projects\Anothers\Examinations\Supeng.Office.Tests\bin\Debug\Microsoft.Vbe.Interop.dll
+D:\Projects\Anothers\Examinations\Supeng.Office.Tests\bin\Debug\stdole.dll
+D:\Projects\Anothers\Examinations\Supeng.Office.Tests\bin\Debug\Supeng.Office.pdb
+D:\Projects\Anothers\Examinations\Supeng.Office.Tests\bin\Debug\EPPlus.xml
+D:\Projects\Anothers\Examinations\Supeng.Office.Tests\bin\Debug\Microsoft.Office.Interop.Word.xml
+D:\Projects\Anothers\Examinations\Supeng.Office.Tests\bin\Debug\office.xml
+D:\Projects\Anothers\Examinations\Supeng.Office.Tests\obj\Debug\Supeng.Office.Tests.csprojResolveAssemblyReference.cache
+D:\Projects\Anothers\Examinations\Supeng.Office.Tests\obj\Debug\Supeng.Office.Tests.dll
+D:\Projects\Anothers\Examinations\Supeng.Office.Tests\obj\Debug\Supeng.Office.Tests.pdb

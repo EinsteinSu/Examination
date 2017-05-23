@@ -1,0 +1,36 @@
+﻿@model Supeng.Examination.BusinessLayer.Models.TestStatistics.TestResultViewModel
+@{
+    ViewBag.Title = "TestResultDetails";
+    Layout = "~/Views/Shared/_rootLayout.cshtml";
+}
+
+<h2>@Model.TestName 考试结果</h2>
+<table style="margin-bottom: 10px">
+    <tr>
+        <td>
+            @Html.DevExpress().Button(settings =>
+       {
+           settings.Name = "btBack";
+           settings.Text = "返回";
+           settings.RouteValues = new { Controller = "TestResults", Action = "Index" };
+       }).GetHtml()
+        </td>
+        <td style="padding-left: 10px">
+            @Html.DevExpress().Button(settings =>
+       {
+           settings.Name = "btExport";
+           settings.Text = "导出";
+           settings.RouteValues = new { Controller = "TestResults", Action = "Export", id = Model.TestId };
+       }).GetHtml()
+        </td>
+        <td style="padding-left: 10px">
+            @Html.DevExpress().Button(settings =>
+       {
+           settings.Name = "btExportAll";
+           settings.Text = "导出明细";
+           settings.RouteValues = new { Controller = "TestResults", Action = "ExportAllUserTest", id = Model.TestId };
+       }).GetHtml()
+        </td>
+    </tr>
+</table>
+@Html.Action("DetailsGridViewPartial")

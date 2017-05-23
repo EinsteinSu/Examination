@@ -1,0 +1,7 @@
+﻿@if (!Request.IsAuthenticated)
+{
+    @Html.ActionLink("登录", "Login", "Account") }
+else
+{
+    @Html.ActionLink("您好" + User.Identity.Name + "!", "Index", "Manage", null, new { title = "Manage" }) 
+    @: |     @Html.ActionLink("登出", "LogOff", "Account") }

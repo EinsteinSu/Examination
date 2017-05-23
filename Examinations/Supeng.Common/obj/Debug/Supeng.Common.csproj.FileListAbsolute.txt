@@ -1,0 +1,13 @@
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Common\bin\Debug\Supeng.Common.dll
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Common\bin\Debug\Supeng.Common.pdb
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Common\bin\Debug\Newtonsoft.Json.dll
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Common\bin\Debug\Newtonsoft.Json.xml
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Common\obj\Debug\Supeng.Common.csprojResolveAssemblyReference.cache
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Common\obj\Debug\Supeng.Common.dll
+D:\Projects\Hengrui\Anothers\Examinations\Supeng.Common\obj\Debug\Supeng.Common.pdb
+D:\Projects\Anothers\Examinations\Supeng.Common\bin\Debug\Supeng.Common.dll
+D:\Projects\Anothers\Examinations\Supeng.Common\bin\Debug\Supeng.Common.pdb
+D:\Projects\Anothers\Examinations\Supeng.Common\bin\Debug\Newtonsoft.Json.dll
+D:\Projects\Anothers\Examinations\Supeng.Common\bin\Debug\Newtonsoft.Json.xml
+D:\Projects\Anothers\Examinations\Supeng.Common\obj\Debug\Supeng.Common.dll
+D:\Projects\Anothers\Examinations\Supeng.Common\obj\Debug\Supeng.Common.pdb

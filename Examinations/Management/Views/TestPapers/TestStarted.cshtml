@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Test Started";
+    Layout = "~/Views/Shared/_rootLayout.cshtml";
+}
+
+<h2>不能再进行编辑</h2>
+
+<h3>该试题已经关联到开始的考试中，不能够再进行编辑！</h3>
+
+<div style="padding: 10px;">
+
+    @Html.DevExpress().Button(settings =>
+{
+    settings.Name = "btBack";
+    settings.Text = "返回";
+    settings.RouteValues = new { Controller = "TestPapers", Action = "Index" };
+    settings.UseSubmitBehavior = true;
+}).GetHtml()
+
+
+</div>

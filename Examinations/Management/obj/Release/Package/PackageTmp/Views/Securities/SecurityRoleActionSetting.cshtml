@@ -1,0 +1,64 @@
+﻿@model Supeng.Examination.BusinessLayer.Models.SecurityRoleActionViewModel
+@{
+    ViewBag.Title = "设置权限";
+    Layout = "~/Views/Shared/_rootLayout.cshtml";
+}
+
+<h2>设置权限</h2>
+@using (Html.BeginForm())
+{
+    
+        @(Html.DevExpress().CheckBoxList(
+                  settings =>
+                  {
+                      settings.Width = Unit.Percentage(100);
+                      settings.Name = "actionList";
+                      settings.Properties.ValueField = "SecurityActionId";
+                      settings.Properties.TextField = "Name";
+                      settings.Properties.ValueType = typeof(int);
+                      settings.PreRender = (sender, e) =>
+                      {
+                          var cbl = (ASPxCheckBoxList)sender;
+
+                          foreach (ListEditItem item in cbl.Items)
+                          {
+                              item.Selected = Model.ExistsActionIds.Contains((int)item.Value);
+                          }
+                      };
+                  }
+                  ).BindList(Model.AllActions)
+                  .GetHtml()
+        )
+        <table>
+            <tr>
+                <td>
+                    @Html.DevExpress().Button(button =>
+        {
+            button.Name = "btConfirm";
+            button.Text = "确定";
+            button.Width = 100;
+            button.UseSubmitBehavior = true;
+            button.RouteValues = new { roleId = Model.RoleId };
+        }).GetHtml()
+                </td>
+                <td style="padding: 10px">
+                    @Html.DevExpress().Button(button =>
+        {
+            button.Name = "btCancel";
+            button.Text = "返回";
+            button.Width = 100;
+            button.RouteValues = new { Controller = "Securities", Action = "Index" };
+        }).GetHtml()
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @if (ViewData["error"] != null)
+                {
+                        <h5 class="text-danger">@ViewData["Error"].ToString()</h5>
+                    }
+                </td>
+            </tr>
+        </table>
+    
+}

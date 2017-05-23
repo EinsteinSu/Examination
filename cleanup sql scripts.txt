@@ -1,0 +1,14 @@
+Delete from TechReports
+Delete from SecurityRoleActions
+Delete from SecurityRoles
+Delete from SecurityActions
+Delete from TestPaperQuestions
+Delete from UserAnswers
+Delete from UserTests
+Delete from TestPapers
+Delete from OptionalAnswers
+Delete from questions
+Delete from Userprofiles
+Delete from tests
+--Delete from Sites
+--Delete from QuestionCategories

@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "CannotTestView";
+    Layout = "~/Views/Shared/_rootLayout.cshtml";
+}
+
+<h2>不能再进行考试</h2>
+
+<h3>由于该考试已经结束不能再答题！</h3>
+
+<div style="padding: 10px;">
+
+    @Html.DevExpress().Button(settings =>
+{
+    settings.Name = "btBack";
+    settings.Text = "返回";
+    settings.RouteValues = new { Controller = "Home", Action = "Index" };
+    settings.UseSubmitBehavior = true;
+}).GetHtml()
+
+
+</div>
